@@ -13,7 +13,7 @@ services:
       MYSQL_ROOT_PASSWORD: secret
 
   tweeter-app-frontend:
-    image: tweeter-app-frontend
+    image: age2001/tweeter-app-frontend:latest
     container_name: tweeter-app-frontend
     build:
       context: ./tweeter-app-frontend/tweeter-app-frontend
@@ -22,7 +22,7 @@ services:
       - "4200:4200"
 
   service-registry:
-    image: service-registry
+    image: age2001/service-registry:latest
     container_name: service-registry
     build:
       context: ./tweeter-app-microservice/service-registry
@@ -31,7 +31,7 @@ services:
       - "8761:8761"
 
   config-server:
-    image: config-server
+    image: age2001/config-server:latest
     container_name: config-server
     build:
       context: ./tweeter-app-microservice/config-server
@@ -44,7 +44,7 @@ services:
       - service-registry
   
   cloud-gateway:
-    image: cloud-gateway
+    image: age2001/cloud-gateway:latest
     container_name: cloud-gateway
     build:
       context: ./tweeter-app-microservice/cloud-gateway
@@ -58,7 +58,7 @@ services:
       SPRING_APPLICATION_JSON: '{"eureka":{"client":{"serviceUrl":{"defaultZone":"http://service-registry:8761/eureka"}}}}'
 
   auth-service:
-    image: auth-service
+    image: age2001/auth-service:latest
     container_name: auth-service
     volumes:
       - tweeter-app-mysql-data:/var/lib/mysql
@@ -80,7 +80,7 @@ services:
       - service-registry
   
   post-service:
-    image: post-service
+    image: age2001/post-service:latest
     container_name: post-service
     volumes:
       - tweeter-app-mysql-data:/var/lib/mysql
@@ -102,13 +102,13 @@ services:
       - service-registry
   
   reply-service:
+    image: age2001/reply-service:latest
     container_name: reply-service
     volumes:
       - tweeter-app-mysql-data:/var/lib/mysql
     build:
       context: ./tweeter-app-microservice/reply-service
       dockerfile: Dockerfile
-    image: reply-service
     ports:
       - "9002:9002"
     environment:
